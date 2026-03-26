@@ -440,6 +440,8 @@ function createNewPuzzle(rows, cols) {
   console.log(`New ${xw.rows}×${xw.cols} puzzle created.`);
 
   actionTimeline.clear();
+  
+  saveStateToSession();
 
   if (!xw.isStandardSize()){
     new Notification("Warning, PDF exporting is not optimized for non-standard grid sizes.", 5);
@@ -465,6 +467,7 @@ function updateUI() {
   updateInfoUI();
   if (isMutated) {
     updateStatsUI();
+    saveStateToSession();
     // autoFill(true);  // quick fill
   }
 }
@@ -718,10 +721,12 @@ function setClues() {
 
 function setTitle() {
   xw.title = document.getElementById("puzzle-title").innerHTML;
+  saveStateToSession();
 }
 
 function setAuthor() {
   xw.author = document.getElementById("puzzle-author").innerHTML;
+  saveStateToSession();
 }
 
 function suppressEnterKey(e) {
@@ -763,6 +768,7 @@ function toggleSymmetry() {
   buttonState = symButton.getAttribute("data-state");
   symButton.setAttribute("data-state", (buttonState == "on") ? "off" : "on");
   symButton.setAttribute("data-tooltip", "Turn " + buttonState + " symmetry");
+  saveStateToSession();
 }
 
 function toggleStrictMatching() {
@@ -774,6 +780,7 @@ function toggleStrictMatching() {
   strictButton.setAttribute("data-state", (buttonState == "on") ? "off" : "on");
   strictButton.setAttribute("data-tooltip", "Turn " + buttonState + " strict matching");
   updateMatchesUI();
+  saveStateToSession();
 }
 
 function toggleDarkMode() {
@@ -785,6 +792,7 @@ function toggleDarkMode() {
     localStorage.setItem("theme", "light");
   }
   isDarkMode = !isDarkMode;
+  saveStateToSession();
   // Update UI button
   let darkButton = document.getElementById("toggle-dark-mode");
   darkButton.classList.toggle("button-on");
@@ -1106,6 +1114,7 @@ function switchCirclesShades() {
       }
     }
   }
+  saveStateToSession();
 }
 
 function undo() {

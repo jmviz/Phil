@@ -37,6 +37,8 @@ function keyboardHandler(e) {
     } else {
       undo();
     }
+    isMutated = true;
+    updateUI();
     return;
   }
   isMutated = false;

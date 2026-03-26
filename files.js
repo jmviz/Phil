@@ -478,6 +478,7 @@ function convertJSONToPuzzle(puz) {
     }
   }
   updateUI();
+  saveStateToSession();
 }
 
 function writeFile(format) {

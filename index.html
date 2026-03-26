@@ -265,9 +265,22 @@
   <script src="patterns.js"></script>
   <script src="stats.js"></script>
   <script src="input.js"></script>
+  <script src="storage.js"></script>
   <script src="cross.js"></script>
   <script src="wordlist.js"></script>
   <script src="files.js"></script>
+  <script>
+    // Initialize session storage on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      createNewPuzzle(DEFAULT_SIZE, DEFAULT_SIZE);
+      
+      // Try to restore saved state after creating the initial puzzle
+      if (!initializeSessionStorage()) {
+        // If no saved state, use the newly created puzzle
+        saveStateToSession();
+      }
+    });
+  </script>
 
 </body>
 </html>

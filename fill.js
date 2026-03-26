@@ -585,7 +585,7 @@ class Grid {
     });
   }
 
-  fill() {
+  fill(progressCallback) {
 
     var stack = [];
 
@@ -594,10 +594,14 @@ class Grid {
     stackLevel.entry = this.getNextFillVictim();
     stack.push(stackLevel);
 
+    var stepCount = 0;
     while (stack.length) {
       if (this.fillStep(stack))
         return 1;
       console.log("=>\n" + this.toString());
+      if (progressCallback && ++stepCount % 100 === 0) {
+        progressCallback(this.toString());
+      }
     }
     return 0;
   }
@@ -629,8 +633,8 @@ class Filler {
     this.grid.fillAsync(callback);
   }
 
-  fill() {
-    this.grid.fill();
+  fill(progressCallback) {
+    this.grid.fill(progressCallback);
     return this.grid.toString();
   }
 
